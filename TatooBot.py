@@ -3,7 +3,7 @@ import config
 
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-bot = telebot.TeleBot(config.TOKEN)
+bot = telebot.TeleBot('2130619696:AAEyHVjqm-T-_OKnXfx-kBiRzBBkZRva4Dw')
 
 INSTA = 'https://www.instagram.com/why_violetta/'
 
@@ -45,15 +45,15 @@ report_text = {
 }
 
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=["start"])
 def command_start(message):
     chat_id = message.chat.id
     report[chat_id] = {}
     report[chat_id]["Telegram username"] = f"@{message.from_user.username}"
     report[chat_id]["Telegram ID"] = message.from_user.id
 
-    sti = open('AnimatedSticker.tgs', 'rb')
-    bot.send_sticker(message.chat.id, sti)
+    # sti = open('AnimatedSticker.tgs', 'rb')
+    # bot.send_sticker(message.chat.id, sti)
 
     markup = InlineKeyboardMarkup(row_width=1)
     item1 = InlineKeyboardButton("Давай!", callback_data="start")
@@ -164,6 +164,9 @@ def callback_query(call):
         report[chat_id]['Способ связи'] = call.data
         bot.send_message(chat_id, 'Оставьте контакт')
 
+       #свежее
+    # elif bot.answer_callback_query(callback_query_id=cmd.id, text="Неверно, Верный ответ...", show_alert=True)
+
 
 @bot.message_handler(content_types=['text'])
 def handle_message(message):
@@ -206,4 +209,16 @@ def convert_report(r):
     return text
 
 
-bot.polling(none_stop=True)
+bot.polling(none_stop=True, interval=0)
+
+# Нужна обработка исключений:
+# при попытке отправить анкету в чат для анкет: если бота нет в чате - вылетает ошибка.
+
+# Если пользователь пытается отправить сообщение в чат вместо нажатия кнопки
+
+# Возможно, по окончании анкетирования стоит добавить кнопку, "заполнить заново"
+
+
+# bot.answer_callback_query(callback_query_id=cmd.id, text="Изменять голос запрещено", show_alert=False)
+#
+# bot.answer_callback_query(callback_query_id=cmd.id, text="Неверно, Верный ответ...", show_alert=True)
