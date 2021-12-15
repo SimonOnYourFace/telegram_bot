@@ -3,9 +3,9 @@ import config
 
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-bot = telebot.TeleBot('2130619696:AAEyHVjqm-T-_OKnXfx-kBiRzBBkZRva4Dw')
+bot = telebot.TeleBot('')
 
-INSTA = 'https://www.instagram.com/why_violetta/'
+INSTA = ''
 
 report = {}
 
